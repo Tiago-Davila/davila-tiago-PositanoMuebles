@@ -1,0 +1,116 @@
+<div id="cd1"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const themeMode = document.documentElement.dataset.mode;
+const dark = themeMode ? themeMode === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"anthropic-sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '13px',
+    fontFamily: '"anthropic-sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+  },
+});
+const { svg } = await mermaid.render('cd1-svg', `classDiagram
+class Usuario {
+  <<abstract>>
+  +int id
+  +String nombre
+  +String apellido
+  +String email
+  +String telefono
+  +Date fechaAlta
+  +iniciarSesion() bool
+  +validarEmail() bool
+}
+class Visitante {
+  +String idSesion
+  +navegarCatalogo() List
+  +solicitarCotizacion() Cotizacion
+}
+class Cliente {
+  +String documento
+  +bool esProfesional
+  +String estadoCuenta
+  +realizarPedido() Pedido
+  +verHistorial() List
+  +solicitarTurno() Turno
+}
+class Administrador {
+  +String legajo
+  +String area
+  +gestionarCatalogo()
+  +validarCuentaProfesional()
+  +generarReporte() Reporte
+}
+class Direccion {
+  +String calle
+  +String numero
+  +String piso
+  +String localidad
+  +String codigoPostal
+  +esValida() bool
+}
+class Categoria {
+  +int id
+  +String nombre
+  +String descripcion
+  +listarProductos() List
+}
+class Producto {
+  <<abstract>>
+  +int id
+  +String nombre
+  +String descripcion
+  +double precioBase
+  +bool activo
+  +calcularPrecio() double
+  +estaDisponible() bool
+}
+class ProductoCatalogo {
+  +String sku
+  +int stock
+  +hayStock(cantidad) bool
+  +descontarStock(cantidad)
+}
+class ProductoAMedida {
+  +double medidaMinima
+  +double medidaMaxima
+  +int diasFabricacion
+  +validarMedidas(alto, ancho) bool
+}
+class ConfiguracionMueble {
+  +int id
+  +double alto
+  +double ancho
+  +double profundidad
+  +int cantidadModulos
+  +esValida() bool
+  +calcularPrecio() double
+  +generarVista3D() Modelo3D
+}
+class Tela {
+  +int id
+  +String nombre
+  +String tipo
+  +String color
+  +double precioPorMetro
+  +hayStock() bool
+}
+Usuario <|-- Visitante
+Usuario <|-- Cliente
+Usuario <|-- Administrador
+Cliente "1" *-- "0..*" Direccion : registra
+Categoria "1" o-- "0..*" Producto : agrupa
+Producto <|-- ProductoCatalogo
+Producto <|-- ProductoAMedida
+ProductoAMedida "1" -- "0..*" ConfiguracionMueble : se configura en
+ConfiguracionMueble "0..*" --> "1..*" Tela : utiliza
+Administrador "1" ..> "0..*" Producto : administra`);
+document.getElementById('cd1').innerHTML = svg;
+</script>

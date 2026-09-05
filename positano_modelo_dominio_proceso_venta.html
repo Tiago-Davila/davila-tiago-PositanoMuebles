@@ -1,0 +1,126 @@
+<div id="cd2"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const themeMode = document.documentElement.dataset.mode;
+const dark = themeMode ? themeMode === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"anthropic-sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '13px',
+    fontFamily: '"anthropic-sans", sans-serif',
+    lineColor: dark ? '#9c9a92' : '#73726c',
+    textColor: dark ? '#c2c0b6' : '#3d3d3a',
+  },
+});
+const { svg } = await mermaid.render('cd2-svg', `classDiagram
+class Cliente {
+  +realizarPedido() Pedido
+}
+class Producto {
+  +calcularPrecio() double
+}
+class ConfiguracionMueble {
+  +esValida() bool
+}
+class Direccion {
+  +esValida() bool
+}
+class Carrito {
+  +int id
+  +Date fechaCreacion
+  +agregarItem(producto, cantidad)
+  +quitarItem(item)
+  +calcularTotal() double
+  +vaciar()
+}
+class ItemCarrito {
+  +int cantidad
+  +double precioUnitario
+  +calcularSubtotal() double
+}
+class Cotizacion {
+  +int numero
+  +Date fechaEmision
+  +Date fechaVencimiento
+  +double monto
+  +String estado
+  +estaVigente() bool
+  +aprobar()
+}
+class Pedido {
+  +int numero
+  +Date fecha
+  +String tipo
+  +EstadoPedido estado
+  +double total
+  +double montoSenia
+  +calcularTotal() double
+  +cambiarEstado(nuevo) bool
+  +puedeCancelarse() bool
+  +cancelar()
+  +estaSeniado() bool
+}
+class ItemPedido {
+  +int cantidad
+  +double precioUnitario
+  +calcularSubtotal() double
+}
+class Pago {
+  +int id
+  +Date fecha
+  +double monto
+  +String medio
+  +String tipo
+  +registrar() bool
+  +cubreMinimoSenia(total) bool
+}
+class Envio {
+  +int id
+  +Date fechaDespacho
+  +Date fechaEntrega
+  +String transportista
+  +double costo
+  +actualizarEstado()
+}
+class Turno {
+  +int id
+  +Date fechaHora
+  +String tipo
+  +String estado
+  +confirmar()
+  +cancelar()
+}
+class EstadoPedido {
+  <<enumeration>>
+  PENDIENTE_DE_PAGO
+  PAGADO
+  COTIZACION
+  COTIZACION_APROBADA
+  SENIADO
+  EN_DISENIO
+  EN_PRODUCCION
+  TERMINADO
+  EN_PREPARACION
+  EN_DESPACHO
+  ENTREGADO
+}
+Cliente "1" -- "0..1" Carrito : posee
+Carrito "1" *-- "0..*" ItemCarrito
+ItemCarrito "0..*" --> "1" Producto
+ItemCarrito "0..1" --> "0..1" ConfiguracionMueble
+Cliente "1" -- "0..*" Cotizacion : solicita
+Cotizacion "0..1" --> "0..1" Pedido : origina
+Cliente "1" -- "0..*" Pedido : realiza
+Pedido "1" *-- "1..*" ItemPedido
+ItemPedido "0..*" --> "1" Producto
+Pedido "1" -- "0..*" Pago : registra
+Pedido "1" -- "0..1" Envio : despacha
+Envio "0..*" --> "1" Direccion
+Cliente "1" -- "0..*" Turno : reserva
+Pedido ..> EstadoPedido`);
+document.getElementById('cd2').innerHTML = svg;
+</script>
