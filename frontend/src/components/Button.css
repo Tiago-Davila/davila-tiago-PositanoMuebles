@@ -1,0 +1,75 @@
+.boton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 26px;
+  border: none;
+  border-radius: var(--radio-pildora);
+  font-weight: 600;
+  font-size: var(--texto-sm);
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+.boton:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.boton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.boton--primario {
+  background: var(--terracota);
+  color: var(--blanco);
+}
+
+.boton--primario:hover:not(:disabled) {
+  background: var(--terracota-oscuro);
+}
+
+.boton--secundario {
+  background: var(--carbon);
+  color: var(--beige);
+}
+
+.boton--secundario:hover:not(:disabled) {
+  background: #2c2a26;
+}
+
+.boton--peligro {
+  background: var(--error);
+  color: var(--blanco);
+}
+
+.boton--peligro:hover:not(:disabled) {
+  background: #7c281d;
+}
+
+.boton--fantasma {
+  background: transparent;
+  color: var(--carbon);
+  box-shadow: inset 0 0 0 1.5px var(--carbon);
+}
+
+.boton--fantasma:hover:not(:disabled) {
+  background: var(--beige-oscuro);
+}
+
+.boton__spinner {
+  width: 15px;
+  height: 15px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: giro 0.7s linear infinite;
+}
+
+@keyframes giro {
+  to {
+    transform: rotate(360deg);
+  }
+}

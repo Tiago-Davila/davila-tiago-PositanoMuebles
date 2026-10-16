@@ -1,0 +1,32 @@
+/* Positano Muebles — tokens de diseño (paleta y tipografía del boceto) */
+:root {
+  /* Paleta */
+  --beige: #f2ebe1; /* fondo principal */
+  --beige-claro: #f8f4ec; /* superficie elevada */
+  --beige-oscuro: #e6dccc; /* paso de tono para separar superficies */
+  --carbon: #3d3a35; /* header, footer, textos importantes */
+  --carbon-suave: #55514a; /* texto secundario */
+  --terracota: #c2643a; /* acento, exclusivo de CTAs */
+  --terracota-oscuro: #a8512c; /* hover de CTAs */
+  --blanco: #fffdf9;
+  --error: #9c3325;
+  --ok: #4a6741;
+
+  /* Tipografía */
+  --font-titulos: "Fraunces", serif;
+  --font-texto: "Inter", system-ui, sans-serif;
+
+  /* Escala fluida */
+  --texto-xl: clamp(2.6rem, 7vw, 5.5rem);
+  --texto-lg: clamp(1.9rem, 3.6vw, 3rem);
+  --texto-md: clamp(1.2rem, 1.8vw, 1.5rem);
+  --texto-base: 1.0625rem;
+  --texto-sm: 0.9375rem;
+
+  /* Espaciado */
+  --seccion: clamp(96px, 14vw, 190px);
+  --margen: clamp(20px, 4vw, 56px);
+
+  --radio: 2px;
+  --radio-pildora: 999px;
+}

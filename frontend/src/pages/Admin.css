@@ -1,0 +1,145 @@
+.admin {
+  padding-top: clamp(90px, 14vh, 150px);
+  min-height: 70vh;
+}
+
+.admin__cabecera {
+  margin-bottom: 54px;
+}
+
+.admin__titulo {
+  font-size: var(--texto-xl);
+  margin-bottom: 18px;
+}
+
+.admin__bajada {
+  color: var(--carbon-suave);
+  max-width: 52ch;
+}
+
+.admin__paneles {
+  display: grid;
+  grid-template-columns: minmax(320px, 420px) 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+.admin__subtitulo {
+  font-size: 1.7rem;
+  margin-bottom: 24px;
+}
+
+/* Formulario */
+.admin__formulario {
+  background: var(--beige-claro);
+  padding: 32px;
+  border-radius: var(--radio);
+  position: sticky;
+  top: 24px;
+}
+
+.admin__formulario form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.admin__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.admin__activo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin__activo input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--terracota);
+}
+
+.admin__activo label {
+  font-size: var(--texto-sm);
+  font-weight: 500;
+}
+
+.admin__acciones {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+/* Listado */
+.admin__lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.admin__item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  background: var(--beige-claro);
+  padding: 24px 28px;
+  border-radius: var(--radio);
+}
+
+.admin__item-info h3 {
+  font-size: 1.35rem;
+  margin-bottom: 4px;
+}
+
+.admin__item-meta {
+  font-size: var(--texto-sm);
+  color: var(--carbon-suave);
+  margin-bottom: 8px;
+}
+
+.admin__estado--activo {
+  color: var(--ok);
+  font-weight: 600;
+}
+
+.admin__estado--inactivo {
+  color: var(--error);
+  font-weight: 600;
+}
+
+.admin__item-descripcion {
+  font-size: var(--texto-sm);
+  color: var(--carbon-suave);
+  max-width: 48ch;
+}
+
+.admin__item-acciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 980px) {
+  .admin__paneles {
+    grid-template-columns: 1fr;
+  }
+
+  .admin__formulario {
+    position: static;
+  }
+
+  .admin__item {
+    flex-direction: column;
+  }
+
+  .admin__item-acciones {
+    flex-direction: row;
+  }
+}

@@ -1,0 +1,33 @@
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.campo__label {
+  font-weight: 600;
+  font-size: var(--texto-sm);
+}
+
+.campo__control {
+  padding: 12px 14px;
+  border: 1.5px solid var(--beige-oscuro);
+  border-radius: var(--radio);
+  background: var(--blanco);
+  color: var(--carbon);
+  transition: border-color 0.2s ease;
+}
+
+.campo__control:focus {
+  border-color: var(--carbon);
+  outline: none;
+}
+
+.campo__control--error {
+  border-color: var(--error);
+}
+
+.campo__error {
+  color: var(--error);
+  font-size: 0.85rem;
+}

@@ -1,0 +1,62 @@
+.ambiente-card {
+  position: relative;
+  display: block;
+  border-radius: var(--radio);
+  overflow: hidden;
+  height: 100%;
+  min-height: 220px;
+  text-decoration: none;
+  color: var(--blanco);
+}
+
+.ambiente-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+}
+
+.ambiente-card:hover img,
+.ambiente-card:focus-visible img {
+  transform: scale(1.06);
+}
+
+.ambiente-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 4px;
+  padding: 28px;
+  background: linear-gradient(to top, rgba(61, 58, 53, 0.85) 0%, rgba(61, 58, 53, 0) 55%);
+  opacity: 0.55;
+  transition: opacity 0.35s ease;
+}
+
+.ambiente-card:hover .ambiente-card__overlay,
+.ambiente-card:focus-visible .ambiente-card__overlay {
+  opacity: 1;
+}
+
+.ambiente-card__overlay h3 {
+  font-size: 1.8rem;
+}
+
+.ambiente-card__overlay p {
+  font-size: var(--texto-sm);
+  opacity: 0.9;
+}
+
+.ambiente-card__cta {
+  margin-top: 10px;
+  font-weight: 600;
+  font-size: var(--texto-sm);
+}
+
+/* En pantallas táctiles el overlay queda siempre visible */
+@media (hover: none) {
+  .ambiente-card__overlay {
+    opacity: 1;
+  }
+}

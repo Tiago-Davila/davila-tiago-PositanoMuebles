@@ -1,0 +1,23 @@
+.split-text {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 0.28em;
+}
+
+.split-text__mascara {
+  display: inline-block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.split-text__palabra {
+  display: inline-block;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .split-text__palabra {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}

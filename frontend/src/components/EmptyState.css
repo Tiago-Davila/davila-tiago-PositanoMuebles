@@ -1,0 +1,20 @@
+.estado-vacio {
+  text-align: center;
+  padding: 70px 24px;
+  background: var(--beige-claro);
+  border-radius: var(--radio);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.estado-vacio h3 {
+  font-size: 1.6rem;
+}
+
+.estado-vacio p {
+  color: var(--carbon-suave);
+  max-width: 440px;
+  margin-bottom: 10px;
+}
