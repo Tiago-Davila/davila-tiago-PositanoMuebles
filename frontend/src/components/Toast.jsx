@@ -1,7 +1,6 @@
-import { createContext, useCallback, useContext, useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { ToastContext } from "../utils/useToast";
 import "./Toast.css";
-
-const ToastContext = createContext(null);
 
 /**
  * Sistema único de notificaciones laterales.
@@ -44,12 +43,4 @@ export function ToastProvider({ children }) {
       </div>
     </ToastContext.Provider>
   );
-}
-
-export function useToast() {
-  const contexto = useContext(ToastContext);
-  if (!contexto) {
-    throw new Error("useToast debe usarse dentro de <ToastProvider>");
-  }
-  return contexto;
 }

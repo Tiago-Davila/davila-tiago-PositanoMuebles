@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -8,7 +8,7 @@ import AmbienteCard from "../components/AmbienteCard";
 import ProductCard from "../components/ProductCard";
 import Skeleton from "../components/Skeleton";
 import EmptyState from "../components/EmptyState";
-import { useToast } from "../components/Toast";
+import { useToast } from "../utils/useToast";
 import { getProductos } from "../services/productos.service";
 import heroVideo from "../assets/hero-video.mp4";
 import heroPoster from "../assets/hero-video-poster.jpg";
@@ -45,9 +45,7 @@ export default function Home() {
   const heroRef = useRef(null);
   const franjaRef = useRef(null);
 
-  const cargarProductos = () => {
-    setCargando(true);
-    setError(null);
+  const pedirProductos = useCallback(() => {
     getProductos()
       .then((lista) => setProductos(lista.filter((p) => p.activo).slice(0, 4)))
       .catch((e) => {
@@ -55,9 +53,17 @@ export default function Home() {
         notificar(e.message, "error");
       })
       .finally(() => setCargando(false));
-  };
+  }, [notificar]);
 
-  useEffect(cargarProductos, [notificar]);
+  // Carga inicial: el estado ya arranca en "cargando".
+  useEffect(pedirProductos, [pedirProductos]);
+
+  // Reintento disparado por el usuario.
+  const cargarProductos = () => {
+    setCargando(true);
+    setError(null);
+    pedirProductos();
+  };
 
   /* Parallax del video del hero + reveal de la franja de pagos */
   useEffect(() => {

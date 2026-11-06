@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Button from "../components/Button";
 import Field from "../components/Field";
 import ConfirmDialog from "../components/ConfirmDialog";
 import Skeleton from "../components/Skeleton";
 import EmptyState from "../components/EmptyState";
-import { useToast } from "../components/Toast";
+import { useToast } from "../utils/useToast";
 import { formatearPrecio } from "../utils/formato";
 import { validarProducto } from "../utils/validaciones";
 import {
@@ -38,9 +38,7 @@ export default function Admin() {
 
   const { notificar } = useToast();
 
-  const cargar = () => {
-    setCargando(true);
-    setErrorCarga(null);
+  const pedirProductos = useCallback(() => {
     getProductos()
       .then(setProductos)
       .catch((e) => {
@@ -48,9 +46,17 @@ export default function Admin() {
         notificar(e.message, "error");
       })
       .finally(() => setCargando(false));
-  };
+  }, [notificar]);
 
-  useEffect(cargar, [notificar]);
+  // Carga inicial: el estado ya arranca en "cargando".
+  useEffect(pedirProductos, [pedirProductos]);
+
+  // Reintento disparado por el usuario.
+  const cargar = () => {
+    setCargando(true);
+    setErrorCarga(null);
+    pedirProductos();
+  };
 
   const manejarCambio = (e) => {
     const { name, value, type, checked } = e.target;

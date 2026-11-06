@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import SplitText from "../components/SplitText";
 import ProductCard from "../components/ProductCard";
 import Skeleton from "../components/Skeleton";
 import EmptyState from "../components/EmptyState";
 import Reveal from "../components/Reveal";
-import { useToast } from "../components/Toast";
+import { useToast } from "../utils/useToast";
 import { getProductos } from "../services/productos.service";
 import "./Catalogo.css";
 
@@ -15,9 +15,7 @@ export default function Catalogo() {
   const [categoria, setCategoria] = useState("todas");
   const { notificar } = useToast();
 
-  const cargar = () => {
-    setCargando(true);
-    setError(null);
+  const pedirProductos = useCallback(() => {
     getProductos()
       .then((lista) => setProductos(lista.filter((p) => p.activo)))
       .catch((e) => {
@@ -25,9 +23,17 @@ export default function Catalogo() {
         notificar(e.message, "error");
       })
       .finally(() => setCargando(false));
-  };
+  }, [notificar]);
 
-  useEffect(cargar, [notificar]);
+  // Carga inicial: el estado ya arranca en "cargando".
+  useEffect(pedirProductos, [pedirProductos]);
+
+  // Reintento disparado por el usuario.
+  const cargar = () => {
+    setCargando(true);
+    setError(null);
+    pedirProductos();
+  };
 
   const categorias = ["todas", ...new Set(productos.map((p) => p.categoria))];
   const visibles =

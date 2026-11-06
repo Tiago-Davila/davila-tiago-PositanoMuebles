@@ -1,5 +1,7 @@
 import "./Footer.css";
 
+const ANIO = new Date().getFullYear();
+
 /**
  * Footer en 3 columnas: local, contacto y redes (según el boceto).
  */
@@ -57,7 +59,7 @@ export default function Footer() {
         Positano
       </p>
       <p className="footer__legal contenedor">
-        © {new Date().getFullYear()} Positano Muebles · Fotos y video: Pexels (uso libre)
+        © {ANIO} Positano Muebles · Fotos y video: Pexels (uso libre)
       </p>
     </footer>
   );
